@@ -1,0 +1,21 @@
+class Solution {
+    public int countDays(int days, int[][] meetings) {
+        int n = meetings.length;       
+        Arrays.sort(meetings , (a , b) -> a[0] - b[0]);
+        int count = meetings[0][1] - meetings[0][0] + 1;
+        int maxi = meetings[0][1];
+        for(int i = 1; i < n; i++) {
+            int x = meetings[i][0];
+            int y = meetings[i][1];
+
+            if(x > maxi) {
+                count += y - x + 1;
+            }
+            else if(x <= maxi && y >= maxi) {
+                count += (y - x + 1) - (maxi - x + 1);
+            }
+            maxi = Math.max(maxi , y);
+        }
+        return days - count;
+    }
+}
