@@ -1,0 +1,28 @@
+class Solution {
+    public int minOperations(int[][] grid, int x) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int arr[] = new int[n * m];
+
+        int k = 0;
+        for(int i = 0; i < n ; i++) {
+            for(int j = 0; j < m; j++) {
+                arr[k++] = grid[i][j];
+            }
+        }
+
+        Arrays.sort(arr);
+        int index = arr[arr.length / 2];
+        int count = 0;
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                int req = Math.abs(index - grid[i][j]);
+                if(req % x == 0)
+                  count += req / x;
+                else
+                  return -1;
+            }
+        }
+        return count;
+    }
+}
